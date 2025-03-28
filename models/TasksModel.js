@@ -23,15 +23,6 @@ const taskSchema = new mongoose.Schema({
     },
     location: {
         type: pointSchema,
-        required: true
-    },
-    status: {
-        type: String,
-        enum: ["open", "in progress", "completed"],
-        default: "open"
-    },
-    location: {
-        type: pointSchema,
         required: [true, "Location is required"],
         index: "2dsphere"
     },
@@ -63,12 +54,15 @@ const taskSchema = new mongoose.Schema({
         immutable: true
     },
     assignedTo: {
-        type: mongoose.Schema.ObjectId,
-        ref: User,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         default: null
     }
 }, {
-    timeseries: true
+    timestamps: true
 }
 );
+
+const Task = mongoose.model('Task', taskSchema);
+module.exports = Task;
 
