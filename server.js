@@ -1,7 +1,7 @@
 const express = require("express")
 const cors = require("cors")
 require("dotenv").config()
-const authenticateApiKey = require("./middlewares/authenticateApiKey")
+const {authenticateApiKey} = require("./middlewares/authenticateApiKey")
 
 const app = express()
 
