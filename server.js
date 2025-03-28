@@ -1,25 +1,37 @@
+require("dotenv").config()
 const express = require("express")
 const cors = require("cors")
-require("dotenv").config()
-const {authenticateApiKey} = require("./middlewares/authenticateApiKey")
+const mongoose = require("mongoose")
+const authenticateApiKey = require("./middlewares/authenticateApiKey")
+const api = require("./routes/api")
+
 
 const app = express()
 
-const PORT = process.env.PORT||3000
+const PORT = process.env.PORT || 3000
 
+app.use(express.json())
+app.use(cors())
 
+app.use(authenticateApiKey)
 
-
-app.get("/",authenticateApiKey, (req,res)=>{
-    res.send("hi")
+mongoose.connect(process.env.MongoDB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 })
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.log(err));
 
 
-app.listen(PORT,(err)=>{
-    if(err){
+app.use("/api", api)
+
+
+
+app.listen(PORT, (err) => {
+    if (err) {
         console.log(`Error starting server on port:${PORT}`)
     }
-    else{
+    else {
         console.log(`Server started on:${PORT}`)
         console.log(`URL: http://localhost:${PORT}`)
     }
