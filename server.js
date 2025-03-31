@@ -29,10 +29,7 @@ const PORT = process.env.PORT || 3000
 
 
 //Connect MongoDB Atlas Database
-mongoose.connect(process.env.MongoDB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+mongoose.connect(process.env.MongoDB_URI)
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));
 
