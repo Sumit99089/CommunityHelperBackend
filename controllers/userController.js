@@ -1,4 +1,3 @@
-
 const getUserProfile = async (req, res) => {
     const user = req.user
     if(!user){
